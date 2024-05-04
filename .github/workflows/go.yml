@@ -31,18 +31,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Run migrations
-        run: make migrationup
 
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
           go-version: '1.20'
-
-      - name: Setup PostgreSQL
-        uses: tj-actions/install-postgresql@v3
-        with:
-          postgresql-version: 16
 
       - name: Build
         run: go build -v ./...
