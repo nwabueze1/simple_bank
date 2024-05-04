@@ -10,35 +10,19 @@ on:
     branches: [ "main" ]
 
 jobs:
-  services:
-      postgres:
-      image: postgres:12
-      env:
-        POSTGRES_DB: simple_bank
-        POSTGRES_PASSWORD: root
-        POSTGRES_USER: postgres
-      ports:
-        - 5432:5432
-        # Set health checks to wait until postgres has started
-      options: >-
-        --health-cmd pg_isready
-        --health-interval 10s
-        --health-timeout 5s
-        --health-retries 5
 
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.20'
 
-      - name: Set up Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: '1.20'
+    - name: Build
+      run: go build -v ./...
 
-      - name: Build
-        run: go build -v ./...
-
-      - name: Test
-        run: make test
+    - name: Test
+      run: make test
