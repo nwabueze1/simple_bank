@@ -2,15 +2,18 @@ package db
 
 import (
 	"context"
-	"fidelis.com/simple_bank/util"
-	"github.com/stretchr/testify/require"
 	"testing"
 	"time"
+
+	"fidelis.com/simple_bank/util"
+	"github.com/stretchr/testify/require"
 )
 
 func createRandomAccount(t *testing.T) Account {
+	owner := createTestUser(t)
+	
 	args := CreateAccountParams{
-		Owner:    util.GenerateRandomOwner(),
+		Owner:    owner.Username,
 		Currency: util.GenerateRandomCurrency(),
 		Balance:  util.GenerateRandomAmount(),
 	}
