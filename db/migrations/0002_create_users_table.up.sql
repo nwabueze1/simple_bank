@@ -13,4 +13,6 @@ CREATE INDEX ON "users" ("email");
 
 ALTER TABLE "accounts" ADD FOREIGN KEY ("owner") REFERENCES "users" ("username");
 
-CREATE INDEX ON "accounts" ("owner", "currency");
+-- CREATE INDEX ON "accounts" ("owner", "currency");
+
+ALTER TABLE "accounts" ADD CONSTRAINT unique_account_owner_currency UNIQUE ("owner", "currency");
